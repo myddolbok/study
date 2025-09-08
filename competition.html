@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경쟁 독서 자료 분석 - 수능 국어</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            line-height: 1.8;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .instruction {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        
+        .main-text {
+            background: #ffffff;
+            padding: 25px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .paragraph {
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .paragraph-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #3498db;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .question-marker {
+            font-size: 10px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-right: 3px;
+            background: #fdeaea;
+            padding: 1px 3px;
+            border-radius: 3px;
+        }
+        
+        .difficult-word {
+            color: #8e44ad;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+            position: relative;
+        }
+        
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #2c3e50;
+        }
+        
+        .difficult-word:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 위계별 시각 표시 스타일 */
+        .topic-sentence {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 0;
+            border: 2px solid #e91e63;
+        }
+        
+        .supporting-detail {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 6px 10px;
+            border-radius: 15px;
+            margin: 3px 0;
+            display: inline-block;
+            border: 1px solid #26a69a;
+        }
+        
+        .evidence {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 5px 8px;
+            border-radius: 10px;
+            font-style: italic;
+            border: 1px solid #ff7043;
+            display: inline-block;
+            margin: 3px 0;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .contrast {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 6px 10px;
+            border-radius: 12px;
+            border-left: 3px solid #e17055;
+            margin: 3px 0;
+            display: inline-block;
+        }
+        
+        .key-concept {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 2px;
+        }
+        
+        .logical-connector {
+            background: #636e72;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin: 0 3px;
+        }
+        
+        .problems {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .problem {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .correct-answer {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .wrong-answer {
+            color: #dc3545;
+        }
+        
+        .special-mark {
+            background: #ffeaa7;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>경쟁, 어떻게 받아들일까? - 독서 자료 분석</h1>
+        
+        <div class="instruction">
+            💡 어려운 단어에 마우스를 올리면 뜻풀이가 나타납니다<br>
+            📊 <strong>위계별 시각 표시 안내:</strong><br>
+            🔴 <span style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 3px 6px; border-radius: 10px; font-weight: bold;">주제문</span> - 문단의 핵심 주장<br>
+            🔵 <span style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 3px 6px; border-radius: 10px;">뒷받침 내용</span> - 주제문을 설명하는 내용<br>
+            🟡 <span style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 3px 6px; border-radius: 10px; font-style: italic;">증거/예시</span> - 구체적인 근거나 사례<br>
+            🟣 <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3px 6px; border-radius: 10px; font-weight: bold;">결론</span> - 문단의 결론이나 핵심 메시지<br>
+            🟠 <span style="background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%); padding: 3px 6px; border-radius: 10px;">대조/전환</span> - 반대 의견이나 전환점<br>
+            ⚪ <span style="background: #636e72; color: white; padding: 2px 6px; border-radius: 12px; font-size: 11px;">논리적 연결어</span> - 문장 간 논리적 관계
+        </div>
+        
+        <div class="main-text">
+            <div class="paragraph">
+                <div class="paragraph-number">1</div>
+                <span class="topic-sentence"><span class="question-marker">4-①</span>우리가 즐거워하는 일에는 항상 <span class="key-concept">경쟁</span>이라는 요소가 들어 있다.</span><br><br>
+                
+                <span class="supporting-detail">놀이와 오락도 경쟁을 할 때 더욱 재미있어진다.</span> <span class="evidence"><span class="question-marker">4-①</span>경쟁은 <span class="key-concept">인간의 본능</span>이기 때문이다.</span><br><br>
+                
+                역사학자 <span class="difficult-word">요한 하위징아<span class="tooltip">네덜란드의 역사학자, 문화학자</span></span>는 이러한 인간의 경쟁 본능을 <span class="key-concept difficult-word">'호모 루덴스'<span class="tooltip">놀이하는 인간이라는 뜻의 라틴어</span></span>라는 말로 설명했다. 그는 <span class="supporting-detail">놀이하는 것이 인간의 가장 큰 특징이며, 이러한 특성은 경쟁 본능과 밀접하게 연결되어 있다</span>고 말한다. <span class="logical-connector">즉</span> <span class="conclusion">인간은 자신의 경쟁 본능을 충족하기 위해 놀이하는 존재가 되었다는 것이다.</span>
+            </div>
+            
+            <div class="paragraph">
+                <div class="paragraph-number">2</div>
+                <span class="supporting-detail">인간을 공격적이고 이기적인 존재로 보았던 영국의 철학자 <span class="difficult-word">토머스 홉스<span class="tooltip">17세기 영국의 정치철학자</span></span></span> <span class="logical-connector">역시</span> <span class="topic-sentence"><span class="question-marker">4-①</span>경쟁심은 <span class="key-concept">인간의 본능</span>이라고 말한다.</span><br><br>
+                
+                <span class="evidence"><span class="question-marker">4-①</span>인간의 본성 중에는 싸움을 불러일으키는 세 가지 요소인 <span class="key-concept">경쟁심, 소심함, 명예욕</span>이 있는데, 특히 경쟁심은 다른 사람과 투쟁하도록 만든다는 것이다.</span><br><br>
+                
+                <span class="logical-connector">이런 점들로 보아</span>, <span class="conclusion"><span class="question-marker">4-④</span>경쟁은 우리 삶에서 떼어 낼 수 없는 <span class="key-concept">불가피한 것</span>이라고 할 수 있다.</span>
+            </div>
+            
+            <div class="paragraph">
+                <div class="paragraph-number">3</div>
+                <span class="supporting-detail">이러한 점을 이용해 경제학자 <span class="key-concept">애덤 스미스</span>는 자본주의 경제 원리의 토대를 만들었다.</span><br><br>
+                
+                <span class="topic-sentence"><span class="special-mark">㉠</span><span class="question-marker">5-③</span>그는 <span class="key-concept">인간의 이기심이 사회를 발전시킨다</span>는 신념을 바탕으로 <span class="key-concept">자유 경쟁의 원리</span>를 주장하였다.</span><br><br>
+                
+                <span class="evidence">그는 인간이 타인에 대한 동정심보다 자신에 대해 애정이 앞서는 존재이며, 이러한 인간의 타고난 이기심을 인정하고 경쟁심을 효과적으로 활용하면 개인과 사회 모두를 발전시킬 수 있다고 믿었다.</span><br><br>
+                
+                <span class="logical-connector">즉</span>, <span class="conclusion"><span class="question-marker">5-③</span>인간의 이기심을 통제하기보다 오히려 <span class="key-concept">경쟁을 통해</span> 인간의 이기심을 잘 활용하여야 개인의 행복과 사회 전체의 이익을 동시에 달성할 수 있다는 것이다.</span><br><br>
+                
+                <span class="supporting-detail">자본주의 경제는 이러한 경쟁 논리를 바탕으로 발전해 왔다.</span> 점점 더 좋은 물건을 원하는 사람들의 욕망, 그리고 이를 만족시키려는 기업들 간의 자유 경쟁은 기술을 발전시키고 생산성을 향상하는 데 크게 기여했다. <span class="logical-connector">이러한 경험을 통해</span> <span class="evidence">오늘날 자유 경쟁의 원리는 <span class="difficult-word">일반화<span class="tooltip">특수한 것이 보편적인 것이 됨</span></span>되었고, 자유 경쟁의 원리를 따르는 자본주의 경제도 그 가치를 인정받고 있다.</span>
+            </div>
+            
+            <div class="paragraph">
+                <div class="paragraph-number">4</div>
+                <span class="contrast"><span class="logical-connector">그럼에도 불구하고</span> 경쟁 그 자체를 부정하거나 반대하는 사람들도 있다.</span><br><br>
+                
+                <span class="evidence">이들은 경쟁이 서로를 <span class="difficult-word">적대시<span class="tooltip">적으로 여기고 반대함</span></span>하여 <span class="key-concept">인간관계를 해친다</span>고 비판한다.</span> 효율성과 <span class="difficult-word">적자생존<span class="tooltip">환경에 적응한 개체만 살아남는다는 진화론의 원리</span></span>의 법칙을 앞세운 경쟁 논리는 경쟁에서 탈락한 사람들을 <span class="difficult-word">도외시<span class="tooltip">돌보지 않고 내버려 둠</span></span>한 채, 결국 <span class="key-concept">강자의 이익만을 대변</span>한다는 것이다.<br><br>
+                
+                <span class="contrast"><span class="logical-connector">그러나</span> 이는 경쟁에 대한 <span class="key-concept">오해</span>이다.</span><br><br>
+                
+                <span class="topic-sentence"><span class="question-marker">4-③</span>경쟁에는 이미 <span class="key-concept">협력의 뜻</span>이 담겨 있다.</span><br><br>
+                
+                <span class="conclusion"><span class="question-marker">4-⑤</span>경쟁은 경쟁자를 부정하고 배제하는 것이 아니라, <span class="key-concept">서로를 인정</span>하고 그 바탕 위에서 각자의 의욕과 노력을 한층 더 이끌어 내는 <span class="key-concept">긍정적 상호 작용</span>이라고 할 수 있다.</span>
+            </div>
+            
+            <div class="paragraph">
+                <div class="paragraph-number">5</div>
+                <span class="evidence"><span class="difficult-word">동서고금<span class="tooltip">동서양과 옛날과 지금</span></span>을 막론하고 인간 사회가 경쟁 사회가 아니었던 적은 찾아보기 어렵다.</span><br><br>
+                
+                <span class="topic-sentence"><span class="question-marker">4-②</span>인류는 처음부터 지금까지 <span class="key-concept">각자의 이익을 위해</span> 항상 경쟁해 왔다.</span><br><br>
+                
+                <span class="supporting-detail">그 과정에서 운동 경기에서처럼 <span class="key-concept">공정한 경쟁 조건과 규칙</span>을 함께 발전시켜 왔다.</span> 경쟁 상대가 승복할 수 없거나 부정하고 불공정한 경쟁으로는 지속적인 경쟁이 불가능함을 잘 알고 있기 때문이다.<br><br>
+                
+                <span class="evidence">우리 사회에서 경쟁은 앞으로도 계속될 것이다.</span><br><br>
+                
+                <span class="logical-connector">따라서</span> <span class="conclusion">앞으로의 과제는 경쟁할 것인가 말 것인가를 선택하는 것이 아니라, <span class="key-concept">공정한 경쟁을 추구하기 위한 방식</span>에 대한 고민을 함께하는 것이다.</span>
+            </div>
+        </div>
+        
+        <div class="problems">
+            <h2>📝 문제 분석</h2>
+            
+            <div class="problem">
+                <h3>[문제 4] 윗글에 담긴 글쓴이의 생각으로 적절하지 않은 것은?</h3>
+                <p>① 경쟁심은 인간의 본성에 해당하는 특성이다. ✓</p>
+                <p>② 인류는 자신의 이익을 위해서 경쟁해 온 존재이다. ✓</p>
+                <p class="correct-answer">③ 공정한 경쟁을 위해서 협력은 배제해야 할 가치이다. ← 정답 (적절하지 않음)</p>
+                <p>④ 경쟁은 우리의 삶에서 떼어 내기 어려운 불가피한 것이다. ✓</p>
+                <p>⑤ 경쟁을 통해 경쟁자들이 서로 의욕을 높이는 상호 작용이 가능하다. ✓</p>
+                
+                <div style="margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                    <strong>해설:</strong> 글쓴이는 4문단에서 "경쟁에는 이미 협력의 뜻이 담겨 있다"고 하여 협력이 경쟁과 함께 가야 할 가치임을 강조했습니다.
+                </div>
+            </div>
+            
+            <div class="problem">
+                <h3>[문제 5] 보기의 사례를 참고할 때, ㉠에 대한 반박으로 가장 적절한 것은?</h3>
+                <div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                    <strong>보기:</strong> 핀란드의 교육 방식은 경쟁이 아니라 협동이다. 우열반을 폐지하고, 등수를 없애고, 뒤처지는 학생을 끌어올리는 데 집중한 결과, 학업 성취도 편차는 가장 낮으면서 학업 성취도 수준은 가장 높은 나라가 되었다.
+                </div>
+                <p>① 등수를 나누는 경쟁은 경쟁의 가치를 약화시킨다.</p>
+                <p>② 진정한 경쟁은 뒤처지는 사람을 방치하지 않는 것이다.</p>
+                <p class="correct-answer">③ 경쟁을 통해서만 개인과 사회가 발전하는 것은 아니다. ← 정답</p>
+                <p>④ 협동심을 길러 주는 것만이 인간다움을 유지하는 최선의 교육이다.</p>
+                <p>⑤ 우열을 가르는 것보다 뒤처지는 학생을 끌어올리는 것이 경제적이다.</p>
+                
+                <div style="margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                    <strong>해설:</strong> ㉠은 애덤 스미스의 "경쟁을 통한 발전" 이론입니다. 핀란드 사례는 협동을 통해서도 높은 성과를 달성할 수 있음을 보여주므로, "경쟁만이 발전의 유일한 방법은 아니다"라는 반박이 가능합니다.
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <h3>📚 글의 구성과 핵심 내용</h3>
+            <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #007bff;">
+                <strong>1문단:</strong> 경쟁 본능과 호모 루덴스 (인간의 놀이 본성)
+            </div>
+            <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #28a745;">
+                <strong>2문단:</strong> 홉스의 인간관 (경쟁심이 인간의 본능)
+            </div>
+            <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #ffc107;">
+                <strong>3문단:</strong> 애덤 스미스의 자본주의 경제 원리 (경쟁을 통한 발전)
+            </div>
+            <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #17a2b8;">
+                <strong>4문단:</strong> 경쟁 반대론 비판 (경쟁의 긍정적 가치 강조)
+            </div>
+            <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #6c757d;">
+                <strong>5문단:</strong> 공정한 경쟁의 중요성과 과제
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
+            <strong>💡 주제:</strong> 경쟁의 불가피성과 공정한 경쟁의 중요성
+        </div>
+    </div>
+</body>
+</html>
