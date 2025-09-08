@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동물의 복지를 생각한다 - 독서 분석</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .text-content {
+            font-size: 16px;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+        .paragraph {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            position: relative;
+        }
+        .paragraph-number {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .problem-marker {
+            background-color: #e74c3c;
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 3px;
+            font-weight: bold;
+        }
+        .vocabulary {
+            background-color: #f1c40f;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: help;
+            position: relative;
+        }
+        .vocabulary:hover::after {
+            content: attr(data-meaning);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 100;
+            font-size: 12px;
+        }
+        .highlighted-text {
+            background-color: #fff3cd;
+            padding: 2px;
+            border-radius: 3px;
+        }
+        .problem-section {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .problem-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .choice {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #bdc3c7;
+        }
+        .correct-answer {
+            border-left-color: #27ae60;
+            background-color: #d5f4e6;
+        }
+        .structure-box {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .structure-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .key-point {
+            background-color: #e8f5e8;
+            border-left: 4px solid #27ae60;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .main-concept {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        .argument {
+            background-color: #fff3e0;
+            border-left: 3px solid #ff9800;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border-radius: 0 3px 3px 0;
+            display: inline-block;
+        }
+        .evidence {
+            background-color: #f3e5f5;
+            border-left: 3px solid #9c27b0;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border-radius: 0 3px 3px 0;
+            display: inline-block;
+        }
+        .transition {
+            background-color: #e8f5e8;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        .usage-guide {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .color-guide {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>동물의 복지를 생각한다 - 김진석</h1>
+        
+        <div class="usage-guide">
+            <strong>📌 사용법 안내:</strong> 
+            <span style="background-color: #f1c40f; padding: 2px 4px; border-radius: 3px;">노란색으로 표시된 어려운 단어</span>에 마우스를 올리면 뜻풀이가 나타납니다.
+        </div>
+
+        <div class="color-guide">
+            <strong>🎨 색깔별 의미:</strong><br>
+            <span style="background-color: #e3f2fd; border: 2px solid #2196f3; padding: 3px 8px; border-radius: 3px; font-weight: bold;">🔍 핵심 개념</span>
+            <span style="background-color: #fff3e0; border-left: 3px solid #ff9800; padding: 3px 8px; border-radius: 0 3px 3px 0;">📝 주장</span>
+            <span style="background-color: #f3e5f5; border-left: 3px solid #9c27b0; padding: 3px 8px; border-radius: 0 3px 3px 0;">📊 근거/예시</span>
+            <span style="background-color: #e8f5e8; padding: 3px 8px; border-radius: 3px; font-style: italic;">🔗 연결어</span>
+            <span style="background-color: #e74c3c; color: white; padding: 2px 5px; border-radius: 3px; font-size: 10px;">문제번호</span>
+        </div>
+        
+        <div class="structure-box">
+            <div class="structure-title">📖 글의 구성과 주요 내용</div>
+            <div class="key-point"><strong>주제:</strong> 동물 복지의 필요성과 인간의 책임</div>
+            <div style="margin: 15px 0;">
+                <strong>1문단:</strong> 서구의 전통적 동물관 (기계론적 관점)<br>
+                <strong>2문단:</strong> 동물 복지의 출발점 (사회적 합의)<br>
+                <strong>3문단:</strong> 동물 복지 기준 설정의 어려움과 필요성<br>
+                <strong>4문단:</strong> 동물의 욕구와 고통 최소화 원칙<br>
+                <strong>5문단:</strong> 동물 복지에 대한 인간의 책임
+            </div>
+        </div>
+
+        <h2>📄 본문 분석</h2>
+        <div class="text-content">
+            <div class="paragraph">
+                <div class="paragraph-number">1문단</div>
+                <div class="main-concept">🔍 전통적 서구 동물관의 문제점</div>
+                <span class="problem-marker">1-②</span><span class="argument">서구에서는 오랜 기간 동물을 <span class="vocabulary" data-meaning="논리적 사고 능력을 가진 정신적 존재">이성적 영혼</span>이 없는 존재로 여기는 철학적 관념이 우세했다.</span> <span class="evidence">따라서 근세에 이르기까지 동물 복지와 같은 개념은 사실상 존재하지 않았다.</span> <span class="problem-marker">2-①</span><span class="argument">17세기 철학자인 데카르트는 동물을 마치 '시계'와 같이 어떤 것도 느끼지 못하는 기계적 특성을 지닌 존재로 여겼다.</span> <span class="problem-marker">3</span><span class="evidence">그 시대에는 <span class="highlighted-text">㉠완전히 의식이 있는 상태의 동물들을 마취나 진통제의 처치도 하지 않고 생체 해부를 하는 일도 흔한 일이었다.</span></span> <span class="transition">그러한 경향은 오늘날까지 이어져</span> <span class="vocabulary" data-meaning="대량 생산을 위해 동물을 기계적으로 사육하는 농장">공장식 농장</span>의 출현을 가능하게 했다.
+            </div>
+
+            <div class="paragraph">
+                <div class="paragraph-number">2문단</div>
+                <div class="main-concept">💡 동물 복지의 출발점: 사회적 합의</div>
+                <span class="problem-marker">1-③</span><span class="problem-marker">2-②</span><span class="argument">사실 현재의 우리도 동물이 쾌락이나 고통을 느낀다는 것을 명확히 입증하지는 못한다.</span> <span class="evidence">그런데 따지고 보면 이것은 인간 사이에서도 마찬가지이다.</span> <span class="transition">그러나</span> <span class="argument">우리는 최소한 어떤 일은 해야 하고 어떤 일은 하지 말아야 한다는 것을 사회적 약속으로 정해 놓고 있다.</span> <span class="problem-marker">2-③</span><span class="transition">따라서</span> <span class="argument">우리는 이러한 원칙을 동물에게도 마찬가지로 적용할 수 있다.</span> <span class="evidence">우리는 동물의 쾌락과 고통을 정확하게 입증하거나 이해할 수는 없지만, 동물에 관해서도 어떤 일은 해야 하고 어떤 일은 하지 말아야 한다는 사회적 합의를 이끌어 낼 수 있다.</span> <div class="main-concept">이것이 바로 '동물 복지'의 출발점이라고 할 수 있다.</div>
+            </div>
+
+            <div class="paragraph">
+                <div class="paragraph-number">3문단</div>
+                <div class="main-concept">⚖️ 동물 복지 기준 설정의 어려움과 필요성</div>
+                <span class="argument">'<span class="vocabulary" data-meaning="행복하고 만족스러운 삶의 상태">복지</span>'란 기본적인 욕구가 충족되고 고통이 최소화되는 행복한 상태라고 할 수 있다.</span> <span class="transition">그러나 더 구체적으로 들어가 보면</span> <span class="evidence">여기에는 복잡한 문제가 있다. 누구의 입장에서 행복한 상태인가를 생각해 보아야 하기 때문이다.</span> <span class="evidence">이를테면 고양이의 건강을 생각해 채식 위주의 식단을 제공한다면 이것이 과연 동물에게 복지를 제공하는 것이라고 할 수 있는지 많은 논란이 있을 수 있다.</span> <span class="problem-marker">1-⑤</span><span class="argument">이러한 점에서 동물 복지의 기준을 세우는 것은 결코 쉽지 않은 일이 될 것이다.</span> <span class="transition">그러나</span> <div class="main-concept">동물 복지에 대한 객관적인 기준을 세우는 것이 완전히 불가능한 일은 아니며 인간의 책임 있는 행동을 위해서 꼭 필요한 일이기도 하다.</div>
+            </div>
+
+            <div class="paragraph">
+                <div class="paragraph-number">4문단</div>
+                <div class="main-concept">🎯 동물의 욕구와 고통 최소화 원칙</div>
+                <span class="transition">앞에서 살펴본 것처럼</span> <span class="argument">복지란 기본적인 욕구가 충족되는 것이므로 동물의 기본적인 욕구가 무엇인지부터 알아야 한다.</span> <span class="problem-marker">1-①</span><div class="main-concept">동물의 욕구는 크게 두 가지로 나눌 수 있다.</div> <span class="evidence">적합한 먹이나 청결한 환경과 같이 긍정적인 것을 추구하는 <span class="vocabulary" data-meaning="좋은 것을 얻으려고 노력하는 욕구">적극적인 욕구</span>와, 육체적으로 받을 수 있는 공격이나 위협과 같은 부정적인 것을 피하려는 <span class="vocabulary" data-meaning="나쁜 것을 피하려고 하는 욕구">소극적인 욕구</span>가 그것이다.</span> <span class="argument">특히 후자의 욕구는 고통을 최소화하는 것이 행복이라는 복지의 개념과 다시 연결된다.</span> <span class="evidence">가령 '죽음'의 경우 어떤 동물도 영원히 살 수 없으며 죽음을 거부할 수 없지만, 사람이 관리하는 동물이라면 생명의 종말이 마땅히 배려되어야 한다.</span> <span class="evidence">물론 야생 동물의 자연적인 죽음에도 고통은 따를 수 있다.</span> <div class="main-concept">여기서 중요한 것은 동물을 죽일 수 없다는 것이 아니라, 어쩔수 없이 동물을 죽일 수밖에 없다면 고통을 최소화하는 것이 복지라는 것이다.</div>
+            </div>
+
+            <div class="paragraph">
+                <div class="paragraph-number">5문단</div>
+                <div class="main-concept">🤝 동물 복지에 대한 인간의 책임</div>
+                <span class="evidence">물론 동물도 모든 고통을 피할 수는 없고 동물이 겪는 고통이 어떠한 것인지 입증하는 것은 어려운 일이다.</span> <span class="problem-marker">2-⑤</span><span class="transition">그러나</span> <span class="argument">동물들이 적극적으로 피하려고 한다면 그것은 고통임에 확실하다.</span> <span class="problem-marker">1-④</span><div class="main-concept">그러므로 동물의 불필요한 고통은 배제하고 최소화하려고 노력하는 것이 동물에게 복지를 제공하는 행위이며 인도적인 행위이다.</div> <span class="argument">이는 사람과 일정한 관계를 유지하고 살아가는 동물과 건전하고 바람직한 관계를 정립하는 측면에서도 인간이 마땅히 지켜야 할 자세이다.</span> <div class="main-concept">결국 인간은 동물의 복지를 책임져야 하며, 이는 인간을 보다 인간답게 하는 일이 될 것이다.</div>
+            </div>
+        </div>
+
+        <h2>📝 문제 분석</h2>
+        
+        <div class="problem-section">
+            <div class="problem-title">[문제1] 윗글을 읽은 독자의 반응으로 가장 적절한 것은?</div>
+            <div class="choice">① 동물 복지에서는 동물의 소극적 욕구보다 적극적 욕구의 충족이 우선되어야 하겠군.</div>
+            <div class="choice">② 동물도 이성적 영혼이 있는 존재라는 사실을 바탕으로 동물 복지의 개념을 세워야겠군.</div>
+            <div class="choice">③ 동물 복지의 필요성을 널리 알리기 위해서는 동물이 겪는 고통을 입증하기 위한 노력을 해야겠군.</div>
+            <div class="choice correct-answer">④ 동물이 불필요한 고통을 겪지 않도록 하는 것은 인간으로서 당연히 가져야 할 자세라고 할 수 있겠군. ✓</div>
+            <div class="choice">⑤ 동물의 복지를 위해 객관적인 기준을 세워야 한다고 했으므로 모든 동물에게 일률적으로 적용할 수 있는 동물 복지가 필요하겠군.</div>
+        </div>
+
+        <div class="problem-section">
+            <div class="problem-title">[문제2] 보기를 바탕으로 윗글에 대해 판단한 내용으로 적절한 것은?</div>
+            <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                <strong>보기:</strong> 인간은 자신의 고통과는 달리 동물의 고통을 직접 느낄 수 없지만, 누군가에게 맞았을 때 신음 소리를 내거나 몸을 움츠리는 동물의 행동이 인간과 기능적으로 유사하다는 것을 보고 <span class="vocabulary" data-meaning="비슷한 사례를 들어 결론을 이끌어내는 논증 방법">유비 논증</span>으로 동물이 고통을 느낀다는 것을 알 수 있다.
+            </div>
+            <div class="choice correct-answer">① 데카르트가 동물을 기계적 특성을 지닌 존재로 여긴 것은 유비 논증의 결론과는 다른 생각을 했기 때문이다. ✓</div>
+            <div class="choice">② 동물의 쾌락이나 고통을 명확히 입증하지 못하는 것은 인간과 동물 사이의 기능적 유사성이 적기 때문이다.</div>
+            <div class="choice">③ 동물에게 해야 할 일과 하지 말아야 할 일의 사회적 합의가 필요한 것은 유비 논증의 개연성을 높일 수 있기 때문이다.</div>
+            <div class="choice">④ 동물에게 기본적인 욕구가 충족되도록 하고 고통이 최소화되는 복지를 제공해야 하는 것은 동물이 인간에 비해 약한 존재이기 때문이다.</div>
+            <div class="choice">⑤ 동물들이 적극적으로 피하려고 하는 것을 고통이라고 확신할 수 있는 것은 감각의 수용에서 동물과 인간의 차이가 존재함을 인정했기 때문이다.</div>
+        </div>
+
+        <div class="problem-section">
+            <div class="problem-title">[문제3] 보기의 관점에서 ㉠에 대한 비판적 의견을 한 문장으로 서술하시오</div>
+            <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                <strong>보기:</strong> 실천 윤리학자인 <span class="vocabulary" data-meaning="동물해방론의 아버지로 불리는 철학자">싱어</span>는 고전적 <span class="vocabulary" data-meaning="최대 다수의 최대 행복을 추구하는 윤리학">공리주의</span>의 원리를 계승하고 확장함으로써 새로운 윤리 사상을 전개한 대표적인 인물이었다. 그는 '<span class="vocabulary" data-meaning="모든 존재의 이익을 평등하게 고려해야 한다는 원칙">이익 평등 고려의 원칙</span>'을 제시함으로써 인간뿐만 아니라 감각을 지닌 모든 동물에게까지 공리의 원리를 확장할 것을 주장하였다. 쾌락과 고통에 대한 감각을 가진 모든 개체가 쾌락을 늘리고 고통을 줄이는 방향으로 행동하는 것, 즉 이익을 추구하는 것은 개체의 기본적인 권리라는 것이다. 따라서 그는 인간뿐만 아니라 감각을 가진 동물까지도 도덕적 배려의 대상이 되어야 한다고 주장하였다.
+            </div>
+            <div class="choice correct-answer"><strong>모범답안:</strong> 동물에게 큰 고통을 주었다는 점에서 도덕적 배려가 없었다고 볼 수 있다.</div>
+        </div>
+
+        <div class="structure-box">
+            <div class="structure-title">💡 핵심 정리</div>
+            <div class="key-point"><strong>글의 핵심:</strong> 동물도 고통을 느끼는 존재이므로 인간은 동물의 복지에 책임을 져야 한다.</div>
+            <div class="key-point"><strong>동물 복지의 기준:</strong> 동물의 불필요한 고통을 최소화하고 기본적 욕구를 충족시키는 것</div>
+            <div class="key-point"><strong>인간의 역할:</strong> 동물과 건전한 관계를 정립하고 도덕적 책임을 다하는 것</div>
+        </div>
+    </div>
+</body>
+</html>
