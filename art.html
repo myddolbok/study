@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>눈이 보이지 않는 친구와 예술을 보러 가다 - 자습서</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            color: #4a5568;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .header .subtitle {
+            color: #718096;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .learning-goals {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .learning-goals h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .learning-goals ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .learning-goals li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .learning-goals li::before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .key-concept {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        .key-concept h4 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .explanation-box {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #38b2ac;
+        }
+        
+        .explanation-box .label {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .vocabulary {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .vocabulary-term {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+        
+        .activity-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .activity-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+        
+        .activity-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .thinking-prompt {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            color: #2d3748;
+        }
+        
+        .interactive-element {
+            background: #e6fffa;
+            border: 2px dashed #38b2ac;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #4a5568;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            margin: 20px 0;
+            background: #f7fafc;
+            padding: 15px 15px 15px 25px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .nav-menu {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-menu h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 8px;
+        }
+        
+        .nav-menu a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+        
+        .collapsible {
+            background-color: #667eea;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .collapsible:hover {
+            background-color: #5a67d8;
+        }
+        
+        .collapsible-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #f7fafc;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .collapsible-content.active {
+            padding: 15px;
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 눈이 보이지 않는 친구와 예술을 보러 가다</h1>
+            <div class="subtitle">울산강남고 2학년 독서 - 1장 거기에 미술관이 있으니까</div>
+            
+            <div class="learning-goals">
+                <h3>🎯 학습 목표</h3>
+                <ul>
+                    <li>인문･예술 분야의 글을 읽으며 제재에 담긴 인문학적 세계관을 이해한다</li>
+                    <li>예술과 삶의 문제를 대하는 인간의 태도를 비판적으로 분석한다</li>
+                    <li>다양한 삶의 방식과 세계관을 이해하는 태도를 기른다</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="content-section">
+                <h2 class="section-title">📖 핵심 내용 정리</h2>
+                
+                <div class="key-concept">
+                    <h4>🎨 이야기의 배경</h4>
+                    <p>저자 가와우치 아리오가 시각장애인 친구 시라토리 겐지와 함께 도쿄의 미쓰비시 1호관 미술관에서 <span class="highlight">'필립스 컬렉션 특별전'</span>을 관람하는 이야기입니다.</p>
+                </div>
+
+                <button class="collapsible">💡 '귀로 본다'는 것의 의미</button>
+                <div class="collapsible-content">
+                    <div class="explanation-box">
+                        <div class="label">핵심 개념</div>
+                        <p>시라토리 씨는 눈이 보이지 않지만, 친구들의 <strong>언어적 설명</strong>을 통해 작품을 '본다'고 표현합니다. 이는 시각적 정보를 청각을 통해 받아들이고 상상력으로 재구성하는 과정입니다.</p>
+                    </div>
+                    
+                    <div class="quote">
+                        "그 순간, 번개처럼 이해했다. 그렇구나, 시라토리 씨는 '귀'로 보는 거야."
+                    </div>
+                </div>
+
+                <button class="collapsible">🧠 '보기'의 과학적 원리</button>
+                <div class="collapsible-content">
+                    <div class="explanation-box">
+                        <div class="label">이해하기 어려운 개념 설명</div>
+                        <p><strong>"사물을 보는 행위에서 반드시 필요한 것은 사전에 축적된 지식과 경험, 즉 뇌 내의 정보다."</strong></p>
+                        <p>👉 우리가 '본다'는 것은 단순히 눈으로 받아들이는 것이 아니라, <span class="highlight">과거의 경험과 기억을 바탕으로 뇌에서 해석하는 과정</span>입니다.</p>
+                    </div>
+                    
+                    <div class="thinking-prompt">
+                        <strong>생각해보기:</strong> 같은 그림을 보고도 저자와 마이티가 다른 감상을 한 이유는?
+                        <ul>
+                            <li><strong>저자:</strong> 프랑스 남부 경험 → 밝고 기분 좋은 그림</li>
+                            <li><strong>마이티:</strong> 유령에 대한 두려움 → 으스스한 그림</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="collapsible">🎨 색을 '개념적으로' 이해하기</button>
+                <div class="collapsible-content">
+                    <div class="explanation-box">
+                        <div class="label">어려운 문장 해설</div>
+                        <p><strong>"색은 개념적으로 이해한다"</strong></p>
+                        <p>👉 시라토리 씨는 색을 직접 보지 못하지만, <span class="highlight">'빨간색=따뜻함, 열정' '파란색=차가움, 평온함'</span>과 같은 개념적 특성으로 색을 이해합니다.</p>
+                    </div>
+                    
+                    <div class="vocabulary">
+                        <div class="vocabulary-term">🔍 비유로 이해하기</div>
+                        <p>전자파나 미생물처럼 우리가 직접 볼 수는 없지만 그 특성과 개념은 아는 것과 비슷합니다.</p>
+                    </div>
+                </div>
+
+                <button class="collapsible">🖼️ 작품 분석 사례</button>
+                <div class="collapsible-content">
+                    <h4>피에르 보나르, 「강아지와 여자」(1922)</h4>
+                    <div class="explanation-box">
+                        <div class="label">관람 과정</div>
+                        <ul>
+                            <li><strong>1단계:</strong> 눈에 보이는 것 묘사 (여자, 강아지, 테이블 등)</li>
+                            <li><strong>2단계:</strong> 색과 빛 분석 (주홍색 스웨터, 파란 벽)</li>
+                            <li><strong>3단계:</strong> 해석과 상상 (창가의 오후 티타임?)</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>피에르 보나르, 「종려나무」(1926)</h4>
+                    <div class="thinking-prompt">
+                        <strong>관점의 차이:</strong>
+                        <ul>
+                            <li><strong>저자:</strong> "프랑스 남부의 낙원 같은 풍경"</li>
+                            <li><strong>마이티:</strong> "유령 같은 여자가 무서워"</li>
+                        </ul>
+                        → 같은 작품, 다른 해석의 이유는 <span class="highlight">개인의 경험과 기억</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div id="vocabulary" class="vocabulary">
+                    <h4>📚 핵심 어휘</h4>
+                    <div class="vocabulary-term">배리어 프리(Barrier Free)</div>
+                    <p>장애인, 고령자 등이 살기 좋은 사회를 만들기 위해 물리적·제도적 장벽을 제거하는 정책</p>
+                    
+                    <div class="vocabulary-term">필립스 컬렉션</div>
+                    <p>미국 워싱턴에 있는 사설 미술관으로, 인상파와 입체파 작품으로 유명</p>
+                    
+                    <div class="vocabulary-term">입체파(큐비즘)</div>
+                    <p>다양한 각도에서 본 대상을 하나의 화면에 표현하는 미술 양식. 피카소가 대표적</p>
+                    
+                    <div class="vocabulary-term">시신경의 모험</div>
+                    <p>보나르가 표현한 개념으로, 실제 시각이 인식하는 대로 그림을 그리려는 시도</p>
+                </div>
+
+                <div class="interactive-element">
+                    <h4>💭 생각해보기</h4>
+                    <p>"예술이란 보편적인 언어다"</p>
+                    <p>- 던컨 필립스</p>
+                    <small>과연 모든 사람이 예술을 같은 방식으로 이해할까요?</small>
+                </div>
+
+                <div class="vocabulary" id="references">
+                    <h4>🔍 탐구 주제</h4>
+                    <div class="vocabulary-term">시각과 인지의 관계</div>
+                    <p>우리가 '본다'는 것은 눈만의 역할일까? 뇌과학적 관점에서 시각 인지 과정 탐구하기</p>
+                    
+                    <div class="vocabulary-term">예술의 보편성과 특수성</div>
+                    <p>던컨 필립스의 "예술은 보편적 언어"라는 주장의 타당성을 문화적 차이 사례로 검증하기</p>
+                    
+                    <div class="vocabulary-term">장애와 예술 접근성</div>
+                    <p>시각장애인을 위한 미술관 프로그램과 예술 향유권에 대한 사회적 논의 탐구하기</p>
+                    
+                    <div class="vocabulary-term">개인적 경험과 예술 해석</div>
+                    <p>같은 작품에 대한 다른 해석이 나타나는 이유와 주관적 감상의 가치 분석하기</p>
+                    
+                    <div class="vocabulary-term">언어로 표현하는 시각 예술</div>
+                    <p>에크프라시스(회화를 언어로 묘사하는 문학 기법)와 시각 예술의 언어적 번역 가능성 탐구하기</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        // 접힌 내용 토글 기능
+        var coll = document.getElementsByClassName("collapsible");
+        
+        for (let i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                content.classList.toggle("active");
+            });
+        }
+
+        // 부드러운 스크롤 기능
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
